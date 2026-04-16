@@ -1,159 +1,145 @@
-'use client';
+"use client";
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
-const hobbies = [
+const interests = [
   {
-    emoji: '💻',
-    name: 'Open Source',
-    tagline: 'Giving back to the community',
-    description: "I love exploring open-source projects and contributing where I can. Reading through well-designed codebases has taught me more than any tutorial — it’s how I pick up new patterns and sharpen my craft as a full stack dev.",
-    details: ['GitHub explorer', 'Learning through real code', 'Collaborative builder'],
-    color: 'var(--beige)',
+    id: "01",
+    emoji: "💻",
+    name: "Open Source",
+    tagline: "Giving back to the community",
+    body: "I explore open-source projects and contribute where I can. Reading well-designed codebases has taught me more than any tutorial — it's how I pick up patterns and sharpen my craft.",
+    details: ["GitHub explorer", "Learning through real code", "Collaborative builder"],
   },
   {
-    emoji: '🎮',
-    name: 'Gaming',
-    tagline: 'The best storytelling on any screen',
-    description: "Games like God of War and Uncharted taught me that great UX is about emotion, not just function. FIFA and Football Manager scratch the strategy itch. GTA is just pure chaos therapy after a long sprint.",
-    details: ['God of War • GTA • Uncharted', 'Football Manager • FIFA', 'Story-driven & open world'],
-    color: 'var(--beige-dark)',
+    id: "02",
+    emoji: "🎮",
+    name: "Gaming",
+    tagline: "The best storytelling on any screen",
+    body: "God of War and Uncharted taught me that great UX is emotion, not just function. FIFA and Football Manager scratch the strategy itch. GTA is chaos therapy.",
+    details: ["God of War · GTA · Uncharted", "Football Manager · FIFA", "Story-driven & open world"],
   },
   {
-    emoji: '⚽',
-    name: 'Football',
-    tagline: 'Teamwork on the pitch',
-    description: "Football keeps me grounded. There’s a real parallel between a well-run football team and a well-run engineering team — communication, clear roles, and timing are everything.",
-    details: ['Weekend 5-a-side player', 'Football Manager tactician', 'Teamwork mindset'],
-    color: 'var(--beige)',
+    id: "03",
+    emoji: "⚽",
+    name: "Football",
+    tagline: "Teamwork on the pitch",
+    body: "Football keeps me grounded. There&apos;s a real parallel between a well-run football team and a well-run engineering team — communication, clear roles, and timing are everything.",
+    details: ["Weekend 5-a-side", "Football Manager tactician", "Team-first mindset"],
   },
   {
-    emoji: '📺',
-    name: 'Anime',
-    tagline: 'The greatest storytelling medium',
-    description: "From JJK to Demon Slayer, anime has the best world-building and hype moments of any medium. Black Clover’s underdog arc hits differently when you’re grinding your craft. My Hero Academia is motivation fuel.",
-    details: ['JJK • Demon Slayer • Black Clover', 'My Hero Academia • Jujutsu Kaisen', 'Shonen enthusiast'],
-    color: 'var(--beige-dark)',
+    id: "04",
+    emoji: "📺",
+    name: "Anime",
+    tagline: "World-class storytelling",
+    body: "From JJK to Demon Slayer, anime has the best world-building. Black Clover&apos;s underdog arc hits differently when you&apos;re grinding your craft.",
+    details: ["JJK · Demon Slayer · Black Clover", "My Hero Academia · Jujutsu Kaisen", "Shonen enthusiast"],
   },
 ];
 
 export default function Interests() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section
-      id="interests"
-      ref={ref}
-      className="section-padding"
-      style={{ background: 'var(--white)' }}
-    >
-      <div className="container-custom">
-        {/* Header */}
-        <div className="mb-16">
-          <p className="section-label mb-5">Beyond the Terminal</p>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="display-heading"
-            style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)', color: 'var(--ink)' }}
-          >
-            What keeps me{' '}
-            <span style={{ color: 'var(--beige-dark)', fontStyle: 'italic' }}>human</span>.
-          </motion.h2>
-        </div>
+    <section id="interests" ref={ref} className="section" style={{ background: "var(--bg)" }}>
+      <div className="container">
+        <p className="label" style={{ marginBottom: "1rem" }}>Beyond the Terminal</p>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.45 }}
+          className="display"
+          style={{ fontSize: "clamp(2.2rem, 4.5vw, 4rem)", color: "var(--fg)", marginBottom: "1rem" }}
+        >
+          What keeps me{" "}
+          <span style={{ color: "var(--accent)" }}>human</span>.
+        </motion.h2>
 
-        {/* Hobbies grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {hobbies.map((hobby, i) => (
+        <div className="divider" style={{ marginBottom: "0" }} />
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0 }} className="interests-grid">
+          {interests.map((item, i) => (
             <motion.div
-              key={hobby.name}
-              initial={{ opacity: 0, y: 40 }}
+              key={item.id}
+              initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="hobby-card group relative overflow-hidden"
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              style={{
+                padding: "2.5rem 2rem",
+                borderRight: i % 2 === 0 ? "1px solid var(--border)" : "none",
+                borderBottom: i < 2 ? "1px solid var(--border)" : "none",
+              }}
             >
-              {/* Background number */}
-              <div
-                className="absolute top-0 right-0 select-none pointer-events-none"
-                style={{
-                  fontSize: '12rem',
-                  lineHeight: 1,
-                  color: 'transparent',
-                  WebkitTextStroke: '1px var(--beige-light)',
-                  fontFamily: 'Syne, sans-serif',
-                  fontWeight: 900,
-                  opacity: 0.6,
-                }}
-              >
-                {String(i + 1).padStart(2, '0')}
-              </div>
-
-              <div className="relative z-10">
-                {/* Icon */}
-                <span className="hobby-card-icon">{hobby.emoji}</span>
-
-                {/* Name + tagline */}
-                <h3 className="font-syne font-black text-3xl mb-1" style={{ color: 'var(--ink)' }}>
-                  {hobby.name}
-                </h3>
-                <p className="font-mono text-xs tracking-widest uppercase mb-4" style={{ color: 'var(--beige-deeper)' }}>
-                  — {hobby.tagline}
-                </p>
-
-                {/* Description */}
-                <p className="font-grotesk text-sm leading-relaxed mb-6" style={{ color: 'var(--ink-muted)' }}>
-                  {hobby.description}
-                </p>
-
-                {/* Detail pills */}
-                <div className="flex flex-col gap-1">
-                  {hobby.details.map((d, di) => (
-                    <motion.div
-                      key={di}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={inView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ delay: i * 0.1 + di * 0.08 + 0.3 }}
-                      className="flex items-center gap-2"
-                    >
-                      <span style={{ color: 'var(--beige)', fontSize: '0.6rem' }}>▪</span>
-                      <span className="font-grotesk text-xs" style={{ color: 'var(--ink-soft)' }}>{d}</span>
-                    </motion.div>
-                  ))}
+              <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", marginBottom: "1rem" }}>
+                <span style={{ fontSize: "1.75rem", flexShrink: 0 }}>{item.emoji}</span>
+                <div>
+                  <h3 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: "1.1rem", color: "var(--fg)", marginBottom: "0.15rem" }}>
+                    {item.name}
+                  </h3>
+                  <p className="label" style={{ color: "var(--fg-subtle)" }}>{item.tagline}</p>
                 </div>
               </div>
+
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.88rem", lineHeight: 1.75, color: "var(--fg-muted)", marginBottom: "1rem" }}>
+                {item.body}
+              </p>
+
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                {item.details.map((d) => (
+                  <li key={d} style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.65rem", color: "var(--fg-subtle)", letterSpacing: "0.04em" }}>
+                    <span style={{ color: "var(--accent-mid)", marginRight: "0.4rem" }}>▸</span>
+                    {d}
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           ))}
         </div>
 
-        {/* Fun banner */}
+        {/* Status bar */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-8 p-6 flex flex-wrap items-center justify-between gap-4"
-          style={{ border: '1px solid var(--border)', background: 'var(--off-white)' }}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.4 }}
+          style={{
+            marginTop: "2rem",
+            padding: "1rem 1.5rem",
+            border: "1px solid var(--border)",
+            background: "var(--bg-subtle)",
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: "2rem",
+          }}
         >
-          <p className="font-mono text-xs tracking-widest uppercase" style={{ color: 'var(--beige-deeper)' }}>
-            Current Status
-          </p>
-          <div className="flex flex-wrap gap-6">
+          <p className="label" style={{ color: "var(--fg-subtle)", flexShrink: 0 }}>Current Status</p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem" }}>
             {[
-              { icon: '💻', text: 'Reading source code' },
-              { icon: '🎮', text: 'Doing GoW on Valhalla' },
-              { icon: '⚽', text: 'Weekend 5-a-side' },
-              { icon: '📺', text: 'Rewatching JJK S2' },
-            ].map(item => (
-              <div key={item.text} className="flex items-center gap-2">
+              { icon: "💻", text: "Reading source code" },
+              { icon: "🎮", text: "GoW — Valhalla DLC" },
+              { icon: "⚽", text: "Weekend 5-a-side" },
+              { icon: "📺", text: "Rewatching JJK S2" },
+            ].map((item) => (
+              <div key={item.text} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                 <span>{item.icon}</span>
-                <span className="font-grotesk text-sm" style={{ color: 'var(--ink-muted)' }}>{item.text}</span>
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.85rem", color: "var(--fg-muted)" }}>{item.text}</span>
               </div>
             ))}
           </div>
         </motion.div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .interests-grid { grid-template-columns: 1fr !important; }
+          .interests-grid > div {
+            border-right: none !important;
+            border-bottom: 1px solid var(--border) !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

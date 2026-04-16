@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Akinloluwa David Oluwaleye — Full Stack Developer",
   description:
-    "Computer Science student and full stack developer specializing in React/Next.js on the frontend and Go on the backend. Building end-to-end web applications with TypeScript, PostgreSQL, and MongoDB. Based in Lagos, Nigeria.",
+    "Computer Science student and full stack developer specialising in React/Next.js on the frontend and Go on the backend. Building end-to-end web applications with TypeScript, PostgreSQL, and MongoDB. Based in Lagos, Nigeria.",
   keywords: [
     "full stack developer",
     "React developer",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Akinloluwa David Oluwaleye — Full Stack Developer",
     description:
-      "Building polished frontends with React/Next.js and robust backends with Go. End to end, from pixel to database.",
+      "Building polished frontends with React/Next.js and robust backends with Go.",
     type: "website",
   },
 };
@@ -40,11 +40,11 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col grain">{children}</body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

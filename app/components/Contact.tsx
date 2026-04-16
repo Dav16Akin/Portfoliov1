@@ -5,228 +5,186 @@ import { useRef, useState } from "react";
 
 export default function Contact() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   const [copied, setCopied] = useState(false);
 
-  const handleCopyEmail = () => {
+  const copyEmail = () => {
     navigator.clipboard.writeText("akindav16@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <section
-      id="contact"
-      ref={ref}
-      className="section-padding"
-      style={{ background: "var(--off-white)" }}
-    >
-      <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+    <section id="contact" ref={ref} className="section" style={{ background: "var(--bg)" }}>
+      <div className="container">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "start" }}
+          className="contact-grid">
+
           {/* Left */}
-          <div>
-            <p className="section-label mb-6">Get In Touch</p>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7 }}
-              className="display-heading mb-8"
-              style={{
-                fontSize: "clamp(3rem, 5vw, 5rem)",
-                color: "var(--ink)",
-              }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.45 }}
+          >
+            <p className="label" style={{ marginBottom: "1rem" }}>Get in Touch</p>
+            <h2
+              className="display"
+              style={{ fontSize: "clamp(2.2rem, 4vw, 3.5rem)", color: "var(--fg)", marginBottom: "1.5rem" }}
             >
-              Let&apos;s build
-              <br />
-              something
-              <br />
-              <span style={{ color: "var(--beige-dark)", fontStyle: "italic" }}>
-                great
-              </span>
-              .
-            </motion.h2>
+              Let&apos;s build something{" "}
+              <span style={{ color: "var(--accent)" }}>great</span>.
+            </h2>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="font-grotesk text-base leading-relaxed mb-10"
-              style={{ color: "var(--ink-muted)", maxWidth: "380px" }}
-            >
-              Open to full-time roles, contract work, and interesting
-              collaboration opportunities. If you&apos;re building something
-              ambitious, let&apos;s talk.
-            </motion.p>
+            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.95rem", lineHeight: 1.75, color: "var(--fg-muted)", marginBottom: "2.5rem", maxWidth: "380px" }}>
+              Open to full-time roles, contract work, and interesting collaborations.
+              If you&apos;re building something ambitious, let&apos;s talk.
+            </p>
 
-            {/* Email copy */}
-            <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.4 }}
-              onClick={handleCopyEmail}
-              data-cursor
-              className="flex items-center gap-4 p-5 w-full text-left transition-all duration-200"
+            {/* Email copy block */}
+            <button
+              onClick={copyEmail}
               style={{
+                width: "100%",
+                background: "var(--bg-raised)",
                 border: "1px solid var(--border)",
-                background: "var(--white)",
+                padding: "1.25rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "1rem",
+                cursor: "pointer",
+                textAlign: "left",
+                marginBottom: "1rem",
+                transition: "border-color 0.18s ease",
               }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--accent)")}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--border)")}
             >
-              <div className="flex-1">
-                <p
-                  className="font-mono text-xs tracking-widest uppercase mb-1"
-                  style={{ color: "var(--beige-deeper)" }}
-                >
-                  Email
-                </p>
-                <p
-                  className="font-syne font-bold text-lg"
-                  style={{ color: "var(--ink)" }}
-                >
+              <div>
+                <p className="label" style={{ color: "var(--fg-subtle)", marginBottom: "0.25rem" }}>Email</p>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: "0.95rem", color: "var(--fg)" }}>
                   akindav16@gmail.com
                 </p>
               </div>
-              <motion.div
-                key={copied ? "copied" : "copy"}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="font-mono text-xs tracking-widest uppercase px-3 py-1.5"
+              <span
+                className="btn btn-outline"
                 style={{
-                  border: "1px solid var(--border)",
-                  color: copied ? "var(--white)" : "var(--beige-deeper)",
-                  background: copied ? "var(--ink)" : "transparent",
-                  transition: "all 0.2s ease",
+                  fontSize: "0.62rem",
+                  padding: "0.35rem 0.9rem",
+                  background: copied ? "var(--accent)" : "transparent",
+                  borderColor: copied ? "var(--accent)" : "var(--border-strong)",
+                  color: copied ? "#fff" : "var(--fg-muted)",
+                  transition: "all 0.18s ease",
+                  flexShrink: 0,
                 }}
               >
                 {copied ? "Copied!" : "Copy"}
-              </motion.div>
-            </motion.button>
+              </span>
+            </button>
 
-            {/* Social links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.5 }}
-              className="flex gap-2 flex-wrap mt-5"
-            >
+            {/* Socials */}
+            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
               {[
-                { label: "GitHub", href: "https://github.com/Dav16Akin" },
-                { label: "LinkedIn", href: "https://www.linkedin.com/in/david-akin-40393123b/" },
-                { label: "Twitter / X", href: "https://x.com/codedbydavid" },
-              ].map((social) => (
+                { label: "GitHub",   href: "https://github.com/Dav16Akin" },
+                { label: "LinkedIn", href: "https://linkedin.com/in/david-akin-40393123b/" },
+                { label: "Twitter",  href: "https://x.com/codedbydavid" },
+              ].map((s) => (
                 <a
-                  key={social.label}
-                  href={social.href}
+                  key={s.label}
+                  href={s.href}
                   target="_blank"
-                  rel="noopener"
-                  className="font-mono text-xs tracking-widest uppercase px-4 py-2.5 flex-1 text-center transition-all duration-200"
-                  style={{
-                    border: "1px solid var(--border)",
-                    color: "var(--ink-muted)",
-                  }}
+                  rel="noopener noreferrer"
+                  className="btn btn-outline"
+                  style={{ flex: 1, justifyContent: "center", fontSize: "0.65rem" }}
                 >
-                  {social.label}
+                  {s.label} ↗
                 </a>
               ))}
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
 
-          {/* Right — form */}
+          {/* Right: Form */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.45, delay: 0.12 }}
           >
             <form
-              className="space-y-4"
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
+              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+              onSubmit={(e) => e.preventDefault()}
             >
               {[
-                {
-                  id: "name",
-                  label: "Name",
-                  type: "text",
-                  placeholder: "John Doe",
-                },
-                {
-                  id: "email",
-                  label: "Email",
-                  type: "email",
-                  placeholder: "john@example.com",
-                },
-                {
-                  id: "subject",
-                  label: "Subject",
-                  type: "text",
-                  placeholder: "Let's build X together",
-                },
-              ].map((field) => (
-                <div key={field.id}>
+                { id: "name",    label: "Name",    type: "text",  placeholder: "John Doe" },
+                { id: "email",   label: "Email",   type: "email", placeholder: "john@example.com" },
+                { id: "subject", label: "Subject", type: "text",  placeholder: "Let's build X together" },
+              ].map((f) => (
+                <div key={f.id}>
                   <label
-                    htmlFor={field.id}
-                    className="font-mono text-xs tracking-widest uppercase block mb-2"
-                    style={{ color: "var(--beige-deeper)" }}
+                    htmlFor={f.id}
+                    className="label"
+                    style={{ display: "block", marginBottom: "0.4rem", color: "var(--fg-subtle)" }}
                   >
-                    {field.label}
+                    {f.label}
                   </label>
                   <input
-                    id={field.id}
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    className="w-full px-4 py-3 font-grotesk text-sm outline-none transition-all duration-200"
+                    id={f.id}
+                    type={f.type}
+                    placeholder={f.placeholder}
                     style={{
+                      width: "100%",
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.9rem",
+                      padding: "0.75rem 1rem",
                       border: "1px solid var(--border)",
-                      background: "var(--white)",
-                      color: "var(--ink)",
+                      background: "var(--bg-raised)",
+                      color: "var(--fg)",
+                      outline: "none",
+                      transition: "border-color 0.18s ease",
                     }}
-                    onFocus={(e) => {
-                      e.target.style.borderColor = "var(--beige-dark)";
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.borderColor = "var(--border)";
-                    }}
+                    onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
+                    onBlur={(e) => (e.target.style.borderColor = "var(--border)")}
                   />
                 </div>
               ))}
 
               <div>
-                <label
-                  htmlFor="message"
-                  className="font-mono text-xs tracking-widest uppercase block mb-2"
-                  style={{ color: "var(--beige-deeper)" }}
-                >
+                <label htmlFor="message" className="label" style={{ display: "block", marginBottom: "0.4rem", color: "var(--fg-subtle)" }}>
                   Message
                 </label>
                 <textarea
                   id="message"
                   rows={5}
                   placeholder="Tell me about your project..."
-                  className="w-full px-4 py-3 font-grotesk text-sm outline-none resize-none transition-all duration-200"
                   style={{
+                    width: "100%",
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.9rem",
+                    padding: "0.75rem 1rem",
                     border: "1px solid var(--border)",
-                    background: "var(--white)",
-                    color: "var(--ink)",
+                    background: "var(--bg-raised)",
+                    color: "var(--fg)",
+                    outline: "none",
+                    resize: "none",
+                    transition: "border-color 0.18s ease",
                   }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = "var(--beige-dark)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "var(--border)";
-                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "var(--accent)")}
+                  onBlur={(e) => (e.target.style.borderColor = "var(--border)")}
                 />
               </div>
 
-              <button
-                type="submit"
-                className="btn-primary w-full justify-center mt-2"
-              >
+              <button type="submit" className="btn btn-dark" style={{ justifyContent: "center", marginTop: "0.25rem" }}>
                 Send Message →
               </button>
             </form>
           </motion.div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .contact-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+        }
+      `}</style>
     </section>
   );
 }
